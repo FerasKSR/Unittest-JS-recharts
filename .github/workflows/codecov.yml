@@ -2,9 +2,6 @@ name: Upload code coverage
 
 on:
   push:
-    branches:
-      - master
-      - 3.x
   pull_request:
 
 jobs:
@@ -27,9 +24,8 @@ jobs:
       - name: Run tests with coverage
         run: npm run test-coverage
 
-      - name: Upload coverage report to Codecov
-        uses: codecov/codecov-action@v5
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v4
         with:
-          slug: recharts/recharts
-          files: ./coverage/coverage-final.json
-          token: ${{ secrets.CODECOV_TOKEN }}
+          name: code-coverage-report
+          path: ./coverage
